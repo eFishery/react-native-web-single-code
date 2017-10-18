@@ -1,23 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, Button } from 'react-native';
+import { StackNavigator, NavigationActions } from 'react-navigation';
+// Relative imports
+import ScheduleViewer from './screens/ScheduleViewer';
+import ScheduleManipulator from './screens/ScheduleManipulator';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js23 to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const App = StackNavigator({
+  Home: { screen: ScheduleViewer, path: '' },
+  ScheduleManipulator: { screen: ScheduleManipulator, path: 'manipulate/' },
 });
+
+// Modify how router works
+const defaultGetStateForAction = App.router.getStateForAction;
+
+App.router.getStateForAction = (action, state) => {
+  if (state && action.type === NavigationActions.NAVIGATE) {
+    const routes = state.routes;
+
+    const getIndexOfRoute = routes.findIndex(route => route.routeName === action.routeName);
+    const newLength = getIndexOfRoute === -1 ? routes.length : getIndexOfRoute;
+    const newRoutes = routes.slice(0, newLength).concat({
+      key: action.routeName,
+      routeName: action.routeName,
+    });
+
+    return {
+      ...state,
+      routes: newRoutes,
+      index: newRoutes.length - 1,
+    };
+  }
+
+  return defaultGetStateForAction(action, state);
+};
+
+export default App;

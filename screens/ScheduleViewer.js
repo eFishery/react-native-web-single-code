@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, ScrollView, Picker, Button } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 // Relative imports
 import ScheduleEntry from './utils/ScheduleEntry';
+import Chart from './utils/Chart';
+import Datatable from './utils/Datatable';
 
 class ScheduleViewer extends React.Component {
   static navigationOptions = {
@@ -19,6 +21,17 @@ class ScheduleViewer extends React.Component {
       jumlahPakan: '',
       jadwal: []
     };
+
+    this.headerJSON = [
+      { key: 'name', title: 'Name' },
+      { key: 'score', title: 'Score' },
+    ];
+    this.bodyJSON = [
+      { name: 'test name 1', score: '100' },
+      { name: 'test name 2', score: '50' },
+      { name: 'test name 3', score: '75' },
+    ];
+
     this.onChangeMethod = this.onChangeMethod.bind(this);
     this.onChangeAmount = this.onChangeAmount.bind(this);
     this.onChangeSchedule = this.onChangeSchedule.bind(this);
@@ -46,7 +59,7 @@ class ScheduleViewer extends React.Component {
     const { metode, jumlahPakan, jadwal } = this.state;
 
     return (
-      <View style={styles.viewMargin}>
+      <ScrollView style={styles.viewMargin}>
         <Button
           title="Manipulate Schedule"
           onPress={this.onChangeScreen}
@@ -74,7 +87,12 @@ class ScheduleViewer extends React.Component {
           durationPause={4}
           feedTarget={5}
         />
-      </View>
+        <Datatable
+          tableHeader={this.headerJSON}
+          tableBody={this.bodyJSON}
+          colFlexArray={[5,5,5]}
+        />
+      </ScrollView>
     );
   }
 }

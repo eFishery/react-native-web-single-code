@@ -1,23 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
+import CheckBox from 'react-native-elements/src/checkbox/CheckBox';
 
+// Private function
+const createKey = (key, trIndex, tdIndex) => `key-${key}-${trIndex}-${tdIndex}`;
+
+// Exported function
 const BodyRow = (props) => {
-  const { rowObject, colFlexArray, headings, trIndex, bgColor } = props;
+  const {
+    rowObject,
+    colFlexArray,
+    headings,
+    trIndex,
+    rowColor,
+    checked,
+    onCheckSingle,
+    bodyCellStyle,
+  } = props;
 
-  const row = Object.keys(rowObject).map((tdKey, tdIndex) => {
+  const checkboxProps = {
+    containerStyle: {
+      backgroundColor: bodyCellStyle.backgroundColor,
+      padding: 0,
+      margin: 0,
+    },
+    size: 16,
+    uncheckedColor: '#000',
+    onPress: onCheckSingle(rowObject),
+    checked,
+  };
+  const row = headings.map((tdObject, tdIndex) => {
+    const tdKey = tdObject.key;
+    let childComponent;
+    let keyName;
+
+    if (tdKey === 'checkbox') {
+      // if column is a checkbox
+      childComponent = rowObject._checkable ?
+        (<CheckBox {...checkboxProps} />) : (<Text></Text>);
+      keyName = createKey('checkbox', trIndex, '*');
+    } else {
+      // If an ordinary column
+      childComponent = (<Text>{rowObject[tdKey]}</Text>);
+      keyName = (createKey('datatable', trIndex, tdIndex));
+    }
+
     return (
       <View
-        key={`key-datatable-${trIndex}-${tdIndex}`}
-        style={{ flex: colFlexArray[tdIndex] }}
+        key={keyName}
+        style={{ ...bodyCellStyle, flex: colFlexArray[tdIndex] }}
       >
-        <Text>{rowObject[tdKey]}</Text>
+        {childComponent}
       </View>
     );
   });
 
   return (
-    <View style={{flex: 1, flexDirection: 'row', backgroundColor: bgColor}}>
+    <View style={{flex: 1, flexDirection: 'row', backgroundColor: rowColor}}>
       {row}
     </View>
   );
@@ -26,9 +66,11 @@ const BodyRow = (props) => {
 BodyRow.propTypes = {
   rowObject: PropTypes.object.isRequired,
   colFlexArray: PropTypes.array.isRequired,
-  headings: PropTypes.array.isRequired,
   trIndex: PropTypes.number.isRequired,
-  bgColor: PropTypes.string.isRequired,
+  rowColor: PropTypes.string.isRequired,
+  onCheckSingle: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+  bodyCellStyle: PropTypes.object.isRequired,
 };
 
 export default BodyRow;

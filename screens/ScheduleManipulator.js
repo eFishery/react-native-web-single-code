@@ -1,6 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
+import { StyleSheet, Text, View, Button } from 'react-native';
+
+const styles = StyleSheet.create({
+  viewMargin: {
+    marginTop: 15,
+  },
+  inputMargin: {
+    marginTop: 20,
+    fontSize: 20,
+  },
+});
 
 class ScheduleManipulator extends React.Component {
   static navigationOptions = {
@@ -33,14 +43,8 @@ class ScheduleManipulator extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  viewMargin: {
-    marginTop: 15,
-  },
-  inputMargin: {
-    marginTop: 20,
-    fontSize: 20
-  }
-});
+ScheduleManipulator.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default ScheduleManipulator;

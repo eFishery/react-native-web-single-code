@@ -1,10 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, ScrollView, Picker, Button } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
+import { StyleSheet, ScrollView } from 'react-native';
 // Relative imports
-import ScheduleEntry from './utils/ScheduleEntry';
 import Chart from './utils/Chart';
 import Datatable from './utils/Datatable';
+
+const styles = StyleSheet.create({
+  viewMargin: {
+    marginTop: 15,
+  },
+  inputMargin: {
+    marginTop: 20,
+    fontSize: 20,
+  },
+});
 
 class ScheduleViewer extends React.Component {
   static navigationOptions = {
@@ -15,39 +24,76 @@ class ScheduleViewer extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      viewState: 'view',
-      metode: '',
-      jumlahPakan: '',
-      jadwal: []
-    };
+    const firstNames = [
+      'Aaren',
+      'Aarika',
+      'Abagael',
+      'Abagail',
+      'Abbe',
+      'Abbey',
+      'Abbi',
+      'Abbie',
+      'Abby',
+      'Abbye',
+      'Abigael',
+      'Abigail',
+      'Abigale',
+      'Abra',
+      'Ada',
+      'Adah',
+      'Adaline',
+      'Adan',
+      'Adara',
+      'Adda',
+    ];
+    const lastNames = [
+      'Aaberg',
+      'Aalst',
+      'Aara',
+      'Aaren',
+      'Aarika',
+      'Aaron',
+      'Aaronson',
+      'Ab',
+      'Aba',
+      'Abad',
+      'Abagael',
+      'Abagail',
+      'Abana',
+      'Abate',
+      'Abba',
+      'Abbate',
+      'Abbe',
+      'Abbey',
+      'Abbi',
+      'Abbie',
+    ];
 
     this.headerJSON = [
-      { key: 'name', title: 'Name' },
-      { key: 'score', title: 'Score' },
+      { key: 'checkbox', title: 'Checkbox', checkbox: true },
+      {
+        key: 'name', title: 'Name', sortable: true, filterable: true,
+      },
+      { key: 'score', title: 'Score', sortable: true },
     ];
-    this.bodyJSON = [
-      { name: 'test name 1', score: '100' },
-      { name: 'test name 2', score: '50' },
-      { name: 'test name 3', score: '75' },
-    ];
+    this.bodyJSON = [];
 
-    this.onChangeMethod = this.onChangeMethod.bind(this);
-    this.onChangeAmount = this.onChangeAmount.bind(this);
-    this.onChangeSchedule = this.onChangeSchedule.bind(this);
+    for (let i = 0; i < 50; i += 1) {
+      const firstNameIdx = Math.floor(Math.random() * 20);
+      const lastNameIdx = Math.floor(Math.random() * 20);
+
+      this.bodyJSON.push({
+        name: `${firstNames[firstNameIdx]} ${lastNames[lastNameIdx]}`,
+        score: Math.floor(Math.random() * 101),
+        _checkable: Math.floor(Math.random() * 2) === 0,
+      });
+    }
+
+    this.headingCellStyle = { padding: 5, backgroundColor: '#DDD' };
+    this.bodyCellStyle = { padding: 5 };
+    this.filterTextStyle = { height: 40 };
+
     this.onChangeScreen = this.onChangeScreen.bind(this);
-  }
-
-  onChangeMethod(metode) {
-    this.setState({ metode });
-  }
-
-  onChangeAmount(jumlahPakan) {
-    this.setState({ jumlahPakan });
-  }
-
-  onChangeSchedule() {
-
   }
 
   onChangeScreen() {
@@ -56,55 +102,27 @@ class ScheduleViewer extends React.Component {
   }
 
   render() {
-    const { metode, jumlahPakan, jadwal } = this.state;
-
     return (
       <ScrollView style={styles.viewMargin}>
-        <Button
-          title="Manipulate Schedule"
-          onPress={this.onChangeScreen}
-        />
-        <Text style={styles.inputMargin}>Metode Pemberian Pakan</Text>
-        <Picker
-          selectedValue={metode}
-          onValueChange={this.onChangeMethod}
-        >
-          <Picker.Item label="Basic" value="basic" />
-          <Picker.Item label="Advance" value="advance" />
-          <Picker.Item label="Continuous" value="continuous" />
-        </Picker>
-        <Text style={styles.inputMargin}>Target Pakan</Text>
-        <TextInput
-          style={{ height: 40 }}
-          placeholder="Jumlah Pakan"
-          onChangeText={this.onChangeAmount}
-        />
-        <ScheduleEntry
-          entryNumber={1}
-          timeStart={3600}
-          timeEnd={7200}
-          durationRun={3}
-          durationPause={4}
-          feedTarget={5}
-        />
+        <Chart />
         <Datatable
           tableHeader={this.headerJSON}
           tableBody={this.bodyJSON}
-          colFlexArray={[5,5,5]}
+          keyName="test-table"
+          colFlexArray={[5, 5, 5]}
+          rowsPerPageOption={[5, 10, 15, 20]}
+          hasFirstLast
+          headingCellStyle={this.headingCellStyle}
+          bodyCellStyle={this.bodyCellStyle}
+          filterTextStyle={this.filterTextStyle}
         />
       </ScrollView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  viewMargin: {
-    marginTop: 15,
-  },
-  inputMargin: {
-    marginTop: 20,
-    fontSize: 20
-  }
-});
+ScheduleViewer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default ScheduleViewer;

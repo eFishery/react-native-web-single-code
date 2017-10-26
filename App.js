@@ -1,5 +1,3 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button } from 'react-native';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 // Relative imports
 import ScheduleViewer from './screens/ScheduleViewer';
@@ -15,9 +13,9 @@ const defaultGetStateForAction = App.router.getStateForAction;
 
 App.router.getStateForAction = (action, state) => {
   if (state && action.type === NavigationActions.NAVIGATE) {
-    const routes = state.routes;
+    const { routes } = state;
 
-    const getIndexOfRoute = routes.findIndex(route => route.routeName === action.routeName);
+    const getIndexOfRoute = routes.findIndex(({ routeName }) => routeName === action.routeName);
     const newLength = getIndexOfRoute === -1 ? routes.length : getIndexOfRoute;
     const newRoutes = routes.slice(0, newLength).concat({
       key: action.routeName,

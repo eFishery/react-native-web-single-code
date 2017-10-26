@@ -1,6 +1,7 @@
 {
   "plugins": [
     "react",
+    "react-native",
     "babel"
   ],
   "extends": ["airbnb"],

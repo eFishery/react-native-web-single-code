@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-babel": "^4.1.2",
@@ -14,7 +17,10 @@
     "eslint-plugin-react-native": "^3.1.0",
     "jest-expo": "^21.0.2",
     "react-native-scripts": "1.5.0",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "react-scripts": "^1.0.14",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.8.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -23,12 +29,14 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/*.js"
+    "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/*.js",
+    "build": "NODE_ENV=production webpack"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "create-react-app": "^1.4.1",
     "date-fns": "^1.29.0",
     "expo": "^21.0.0",
     "prop-types": "^15.6.0",
@@ -37,6 +45,7 @@
     "react-native-elements": "^0.17.0",
     "react-native-svg": "^5.4.2",
     "react-native-vector-icons": "^4.4.2",
+    "react-native-web": "^0.1.12",
     "react-navigation": "^1.0.0-beta.13",
     "victory-native": "^0.15.0"
   }

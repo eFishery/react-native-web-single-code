@@ -11,7 +11,7 @@ const babelLoaderConfiguration = {
   test: /\.js$/,
   // Add every directory that needs to be compiled by Babel during the build
   include: [
-    path.resolve(__dirname),
+    path.resolve(__dirname, '../'),
     // path.resolve(__dirname, 'node_modules/react-native-uncompiled')
   ],
   use: {
@@ -25,7 +25,7 @@ const babelLoaderConfiguration = {
       babelrc: false,
       presets: [
         ["env", { modules: false }],
-        // "react-native",
+        "react-native",
       ]
     }
   }
@@ -50,7 +50,7 @@ module.exports = {
   devtool: 'cheap-source-map',
   context: resourcePath,
   entry: {
-    test: './App.js'
+    test: './index.js'
   },
   output: {
     path: buildPath,
@@ -77,7 +77,7 @@ module.exports = {
     // wish to include additional optimizations.
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.haHAA': JSON.stringify('xd'),
+      'Platform.OS': JSON.stringify('web'),
     }),
     new webpack.optimize.UglifyJsPlugin(),
   ],

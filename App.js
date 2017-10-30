@@ -32,6 +32,4 @@ App.router.getStateForAction = (action, state) => {
   return defaultGetStateForAction(action, state);
 };
 
-// App registration and rendering
-AppRegistry.registerComponent('MyApp', () => App);
-AppRegistry.runApplication('MyApp', { rootTag: document.getElementById('root') });
+export default App;

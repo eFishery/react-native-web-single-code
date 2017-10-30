@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
-import Button from 'react-native-elements/src/buttons/Button';
+import Button from './Button';
 
 const Pagination = (props) => {
   const {

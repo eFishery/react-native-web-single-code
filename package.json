@@ -30,15 +30,17 @@
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/*.js",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack --config ./web/webpack.config.js"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "create-react-app": "^1.4.1",
     "date-fns": "^1.29.0",
     "expo": "^21.0.0",
+    "font-awesome": "^4.7.0",
     "prop-types": "^15.6.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.48.4",

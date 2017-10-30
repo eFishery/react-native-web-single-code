@@ -24,9 +24,8 @@ const babelLoaderConfiguration = {
       // The 'react-native' preset is recommended (or use your own .babelrc)
       babelrc: false,
       presets: [
-        "env",
-        "react-native",
-        "stage-2"
+        ["env", { modules: false }],
+        // "react-native",
       ]
     }
   }
@@ -77,8 +76,10 @@ module.exports = {
     // builds to eliminate development checks and reduce build size. You may
     // wish to include additional optimizations.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.haHAA': JSON.stringify('xd'),
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
 
   resolve: {

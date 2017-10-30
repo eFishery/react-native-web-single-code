@@ -1,6 +1,4 @@
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { AppRegistry } from 'react-native';
-
 // Relative imports
 import ScheduleViewer from './screens/ScheduleViewer';
 import ScheduleManipulator from './screens/ScheduleManipulator';
@@ -34,8 +32,6 @@ App.router.getStateForAction = (action, state) => {
   return defaultGetStateForAction(action, state);
 };
 
-AppRegistry.registerComponent('App', () => App);
-
-AppRegistry.runApplication('App', {
-  rootTag: document.getElementById('root')
-});
+// App registration and rendering
+AppRegistry.registerComponent('MyApp', () => App);
+AppRegistry.runApplication('MyApp', { rootTag: document.getElementById('root') });

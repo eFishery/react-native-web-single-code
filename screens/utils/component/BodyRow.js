@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
-import CheckBox from 'react-native-elements/src/checkbox/CheckBox';
+import CheckBox from './CheckBox';
 
 // Private function
 const createKey = (key, trIndex, tdIndex) => `key-${key}-${trIndex}-${tdIndex}`;

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableHighlight } from 'react-native';
-import CheckBox from 'react-native-elements/src/checkbox/CheckBox';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from './FontAwesome';
+import CheckBox from './CheckBox';
 
 const TableHeader = (props) => {
   const {

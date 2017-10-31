@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, ScrollView } from 'react-native';
 // Relative imports
-import Chart from './utils/Chart';
+// import Chart from './utils/Chart';
 import Datatable from './utils/Datatable';
 
 const styles = StyleSheet.create({
@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
 });
 
 class ScheduleViewer extends React.Component {
-  static navigationOptions = {
-    title: 'Schedule Viewer',
-    headerStyle: { marginTop: 24 },
-  };
+  // static navigationOptions = {
+  //   title: 'Schedule Viewer',
+  //   headerStyle: { marginTop: 24 },
+  // };
 
   constructor() {
     super();
@@ -104,7 +104,6 @@ class ScheduleViewer extends React.Component {
   render() {
     return (
       <ScrollView style={styles.viewMargin}>
-        <Chart />
         <Datatable
           tableHeader={this.headerJSON}
           tableBody={this.bodyJSON}

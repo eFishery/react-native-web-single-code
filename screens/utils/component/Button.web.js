@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const Button = props => {
   const {
-    key,
     onPress,
     style,
     title,
@@ -11,7 +10,6 @@ const Button = props => {
 
   return (
     <button
-      key={key}
       onClick={onPress}
       style={style}
     >
@@ -21,7 +19,6 @@ const Button = props => {
 };
 
 Button.propTypes = {
-  key: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   style: PropTypes.object,
   title: PropTypes.string,

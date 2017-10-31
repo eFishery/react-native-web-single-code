@@ -161,7 +161,7 @@ class Datatable extends React.Component {
     let paginatedRows = tableBody;
 
     if (currentPage) {
-      paginatedRows = paginatedRows.slice(currentPage - 1, currentPage * rowsPerPage);
+      paginatedRows = paginatedRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
     }
 
     return paginatedRows;

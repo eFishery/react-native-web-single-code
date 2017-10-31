@@ -1,5 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
+
+// const nodeEnv = process.env.NODE_ENV;
+const nodeEnv = 'development';
+
 // web/webpack.config.js
 
 // This is needed for webpack to compile JavaScript.
@@ -47,7 +51,7 @@ const buildPath = path.join(__dirname, './public');
 
 module.exports = {
   // ...the rest of your config
-  devtool: 'cheap-source-map',
+  devtool: nodeEnv === 'production' ? 'cheap-source-map' : 'eval',
   context: resourcePath,
   entry: {
     test: './index.js'
@@ -76,7 +80,7 @@ module.exports = {
     // builds to eliminate development checks and reduce build size. You may
     // wish to include additional optimizations.
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
       'Platform.OS': JSON.stringify('web'),
     }),
     new webpack.optimize.UglifyJsPlugin(),

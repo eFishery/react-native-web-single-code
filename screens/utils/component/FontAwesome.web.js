@@ -12,7 +12,10 @@ const FontAwesome = ({ name, size, color }) => {
   const props = {
     className: faClass,
     'aria-hidden': true,
-    style: `color: ${color}; font-size: ${size}px;`,
+    style: {
+      color: `${color}`,
+      'font-size': `${size}px`,
+    },
   };
 
   return (

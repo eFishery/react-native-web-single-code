@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 // Relative imports
 // import Chart from './utils/Chart';
 import Datatable from './utils/Datatable';
@@ -103,7 +103,7 @@ class ScheduleViewer extends React.Component {
 
   render() {
     return (
-      <View style={styles.viewMargin}>
+      <ScrollView style={styles.viewMargin}>
         <Datatable
           tableHeader={this.headerJSON}
           tableBody={this.bodyJSON}
@@ -115,7 +115,7 @@ class ScheduleViewer extends React.Component {
           bodyCellStyle={this.bodyCellStyle}
           filterTextStyle={this.filterTextStyle}
         />
-      </View>
+      </ScrollView>
     );
   }
 }

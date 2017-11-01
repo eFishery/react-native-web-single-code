@@ -1,0 +1,19 @@
+import React from "react";
+import { Dimensions } from "react-native";
+import { G } from "react-native-svg";
+import { VictoryVoronoi } from "victory-chart/src";
+
+import VictoryLabel from "./victory-label";
+import VictoryContainer from "./victory-container";
+import { Voronoi } from "../index";
+
+export default class extends VictoryVoronoi {
+  static defaultProps = {
+    ...VictoryVoronoi.defaultProps,
+    dataComponent: <Voronoi/>,
+    labelComponent: <VictoryLabel/>,
+    containerComponent: <VictoryContainer/>,
+    groupComponent: <G/>,
+    width: Dimensions.get("window").width
+  };
+}

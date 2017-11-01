@@ -6,7 +6,9 @@
     "slug": "test-app",
     "sdkVersion": "21.0.0",
     "packagerOpts": {
-      "assetExts": ["ttf"]
+      "assetExts": [
+        "ttf"
+      ]
     },
     "android": {
       "package": "com.efishery.test"
@@ -15,6 +17,8 @@
       "backgroundColor": "#FFFFFF",
       "backgroundImage": "./web/public/feelsgoodman.png",
       "icon": "./web/public/feelsgoodman.png"
-    },
-  }
+    }
+  },
+  "name": "yoloreactnativeoffline",
+  "displayName": "Test App"
 }

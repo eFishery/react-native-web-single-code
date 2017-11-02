@@ -14,7 +14,7 @@ const FontAwesome = ({ name, size, color }) => {
     'aria-hidden': true,
     style: {
       color: `${color}`,
-      'font-size': `${size}px`,
+      'fontSize': `${size}px`,
     },
   };
 

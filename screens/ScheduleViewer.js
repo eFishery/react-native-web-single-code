@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Text } from 'react-native';
+import axios from 'axios';
+import CheckBox from './utils/component/CheckBox';
 // Relative imports
 // import Chart from './utils/Chart';
 import Datatable from './utils/Datatable';
@@ -23,6 +25,18 @@ class ScheduleViewer extends React.Component {
 
   constructor() {
     super();
+
+    setInterval(
+      () => {
+        axios({
+          method: 'head',
+          url: 'https://dog.ceo/api/breeds/list/all',
+        })
+          .then((thingSuccess) => console.log(thingSuccess))
+          .catch((thingError) => console.log(thingError));
+      },
+      5000
+    );
 
     const firstNames = [
       'Aaren',
@@ -94,6 +108,8 @@ class ScheduleViewer extends React.Component {
     this.filterTextStyle = { height: 40 };
 
     this.onChangeScreen = this.onChangeScreen.bind(this);
+
+    this.state = { isOnline: true };
   }
 
   onChangeScreen() {
@@ -121,7 +137,7 @@ class ScheduleViewer extends React.Component {
 }
 
 ScheduleViewer.propTypes = {
-  navigation: PropTypes.object.isRequired,
+  // navigation: PropTypes.object.isRequired,
 };
 
 export default ScheduleViewer;

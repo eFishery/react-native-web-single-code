@@ -1,5 +1,6 @@
 node_modules/
 npm-debug.log*
+.env.example
 
 # Created by https://www.gitignore.io/api/androidstudio
 

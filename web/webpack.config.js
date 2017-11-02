@@ -1,95 +1,184 @@
+// Dotenv
+require('dotenv').config();
+
+// Webpack config
 const webpack = require('webpack');
 const path = require('path');
+const NodeObjectHash = require('node-object-hash');
 
-// const nodeEnv = process.env.NODE_ENV;
-const nodeEnv = 'development';
+const ManifestPlugin = require('webpack-manifest-plugin');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// web/webpack.config.js
+const nodeEnv = process.env.NODE_ENV;
+const wdsPort = process.env.WDS_PORT;
+const isProd = nodeEnv === 'production';
 
-// This is needed for webpack to compile JavaScript.
-// Many OSS React Native packages are not compiled to ES5 before being
-// published. If you depend on uncompiled packages they may cause webpack build
-// errors. To fix this webpack can be configured to compile to the necessary
-// `node_module`.
-const babelLoaderConfiguration = {
-  test: /\.js$/,
-  // Add every directory that needs to be compiled by Babel during the build
-  include: [
-    path.resolve(__dirname, '../'),
-    // path.resolve(__dirname, 'node_modules/react-native-uncompiled')
-  ],
-  use: {
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: true,
-      // This aliases 'react-native' to 'react-native-web' and includes only
-      // the modules needed by the app
-      plugins: ['react-native-web/babel'],
-      // The 'react-native' preset is recommended (or use your own .babelrc)
-      babelrc: false,
-      presets: [
-        ["env", { modules: false }],
-        "react-native",
-      ]
-    }
-  }
-};
-
-// This is needed for webpack to import static images in JavaScript files
-const imageLoaderConfiguration = {
-  test: /\.(gif|jpe?g|png|svg)$/,
-  use: {
-    loader: 'url-loader',
-    options: {
-      name: '[name].[ext]'
-    }
-  }
-};
-
-const resourcePath = path.join(__dirname, './');
+const cachePath = path.join(__dirname, '../node_modules/.cache');
+const entryPath = path.join(__dirname);
+const resourcePath = path.join(__dirname, '../screens');
+const wdsPath = path.join(__dirname, './dev');
 const buildPath = path.join(__dirname, './public');
 
-module.exports = {
-  // ...the rest of your config
-  devtool: nodeEnv === 'production' ? 'cheap-source-map' : 'eval',
-  context: resourcePath,
-  entry: {
-    test: './index.js'
-  },
-  output: {
-    path: buildPath,
-    filename: '[name].js',
-    chunkFilename: '[name].js',
-    publicPath: '/'
-  },
-  resolve: {
-      modules: [
-        resourcePath,
-        path.resolve(__dirname, 'node_modules')
-      ],
-    },
-  module: {
-    rules: [
-      babelLoaderConfiguration,
-      imageLoaderConfiguration
-    ]
-  },
+// Common plugins
+const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(nodeEnv),
+    'Platform.OS': JSON.stringify('web'),
+  }),
+];
 
-  plugins: [
-    // `process.env.NODE_ENV === 'production'` must be `true` for production
-    // builds to eliminate development checks and reduce build size. You may
-    // wish to include additional optimizations.
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
-      'Platform.OS': JSON.stringify('web'),
+// Common loaders
+const imageLoader = [];
+const loaders = [
+  {
+    test: /\.js$/,
+    // Add every directory that needs to be compiled by Babel during the build
+    include: [
+      entryPath,
+      resourcePath,
+      path.resolve(__dirname, '../node_modules/react-native-uncompiled')
+    ],
+    use: {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+        // This aliases 'react-native' to 'react-native-web' and includes only
+        // the modules needed by the app
+        plugins: ['react-native-web/babel'],
+        // The 'react-native' preset is recommended (or use your own .babelrc)
+        babelrc: false,
+        presets: [
+          ["env", { modules: false }],
+          "react-native"
+        ]
+      }
+    }
+  },
+  {
+    test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+    use: isProd ? 'file-loader?publicPath=../&name=fonts/[name].[hash].[ext]' :
+                  'file-loader?name=fonts/[name].[ext]'
+  },
+  {
+    test: /.*\.(gif|png|jpe?g)$/i,
+    loaders: imageLoader
+  }
+];
+
+// Configure plugins and loaders depending on environment settings
+if (isProd) {
+  plugins.push(
+    new HardSourceWebpackPlugin({
+      cacheDirectory: `${cachePath}/hard-source/[confighash]`,
+      recordsPath: `${cachePath}/hard-source/[confighash]/records.json`,
+      configHash: NodeObjectHash({sort: false}).hash,
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
     }),
     new webpack.optimize.UglifyJsPlugin(),
-  ],
+    new WebpackMd5Hash(),
+    new ManifestPlugin(),
+    new ChunkManifestPlugin({
+      filename: 'chunk-manifest.json',
+      manifestVariable: 'webpackManifest'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: ['index'],
+      minChunks: ({ resource }) => /node_modules/.test(resource),
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Farm Management Dashboard',
+      filename: './index.html',
+      inject: true,
+      template: './templates/index-prod.ejs',
+    })
+  );
 
-  resolve: {
-    // If you're working on a multi-platform React Native app, web-specific
-    // module implementations should be written in files using the extension
-    // `.web.js`.
-    extensions: [ '.web.js', '.js' ]
-  }
+  imageLoader.push(
+    'file-loader?name=img/[name].[hash].[ext]',
+    {
+      loader: 'image-webpack-loader',
+      query: {
+        optipng: {
+          quality: '65-90',
+          speed: 4,
+          optimizationLevel: 7,
+          interlaced: false
+        },
+        gifsicle: {
+          quality: '65-90',
+          speed: 4,
+          optimizationLevel: 7,
+          interlaced: false
+        },
+        mozjpeg: {
+          quality: '65-90',
+          speed: 4,
+          optimizationLevel: 7,
+          interlaced: false,
+          progressive: true
+        }
+      }
+    }
+  );
+} else {
+  plugins.push(new webpack.HotModuleReplacementPlugin());
+  imageLoader.push('file-loader?name=img/[name].[ext]');
 }
+
+// If
+
+module.exports = {
+  devtool: isProd ? 'source-map' : 'eval',
+  context: entryPath,
+  entry: {
+    index: './index.js',
+  },
+  output: {
+    path: isProd ? `${buildPath}/` : `${wdsPath}`,
+    filename: isProd ? 'js/[name].[chunkhash].js' : 'js/[name].js',
+    chunkFilename: isProd ? 'js/[name].[chunkhash].js' : 'js/[name].js',
+    publicPath: './'
+  },
+  module: { loaders },
+  resolve: {
+    modules: [
+      resourcePath,
+      path.resolve(__dirname, '../node_modules')
+    ],
+    extensions: ['.web.js', '.js'],
+  },
+  plugins,
+  devServer: {
+    contentBase: wdsPath,
+    historyApiFallback: true,
+    port: wdsPort,
+    hot: true,
+    inline: true,
+    publicPath: '/',
+    compress: isProd,
+    watchOptions: {
+      poll: true
+    },
+    stats: {
+      assets: true,
+      children: false,
+      chunks: false,
+      hash: false,
+      modules: false,
+      publicPath: false,
+      timings: true,
+      version: false,
+      warnings: true,
+      colors: {
+        green: '\u001b[32m',
+      }
+    },
+  }
+};

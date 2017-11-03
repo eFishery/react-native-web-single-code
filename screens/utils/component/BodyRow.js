@@ -37,7 +37,7 @@ const BodyRow = (props) => {
 
     if (tdKey === 'checkbox') {
       // if column is a checkbox
-      childComponent = rowObject._checkable ?
+      childComponent = rowObject.checkable ?
         (<CheckBox {...checkboxProps} />) : (<Text></Text>);
       keyName = createKey('checkbox', trIndex, '*');
     } else {

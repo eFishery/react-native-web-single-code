@@ -1,4 +1,4 @@
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Text } from 'react-native';
 
 import ScheduleViewer from '../screens/ScheduleViewer';
 

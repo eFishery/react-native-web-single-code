@@ -37,8 +37,8 @@
     "android:bundle-dev": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "ios": "react-native run-ios",
     "wds": "webpack-dev-server --config ./web/webpack.config.js",
-    "test": "node node_modules/jest/bin/jest.js screens/**/*.js",
-    "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/*.js",
+    "test": "node node_modules/jest/bin/jest.js screens/**/*.js && npm run eslint",
+    "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/**/*.js",
     "build:web": "NODE_ENV=production webpack --config ./web/webpack.config.js",
     "build:native": "cd android && ./gradlew assembleRelease",
     "analyze": "webpack --config ./web/webpack.config.js --json | webpack-bundle-size-analyzer"
@@ -46,6 +46,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "babel-jest": "^21.2.0",
+    "bluebird": "^3.5.1",
     "classnames": "^2.2.5",
     "create-react-app": "^1.4.1",
     "date-fns": "^1.29.0",

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, ScrollView, Text } from 'react-native';
-import axios from 'axios';
 import CheckBox from './utils/component/CheckBox';
 // Relative imports
 // import Chart from './utils/Chart';
+import checkConnection from './utils/helper/CheckConnection';
 import Datatable from './utils/Datatable';
 
 const styles = StyleSheet.create({
@@ -28,14 +28,19 @@ class ScheduleViewer extends React.Component {
 
     setInterval(
       () => {
-        axios({
-          method: 'head',
-          url: 'https://dog.ceo/api/breeds/list/all',
-        })
-          .then((thingSuccess) => console.log(thingSuccess))
-          .catch((thingError) => console.log(thingError));
+        checkConnection()
+          .then(({ type, effectiveType }) => {
+            this.setState({ isOnline: true });
+          })
+          .catch(({ response, request }) => {
+            if (request && !response) {
+              // If request is present but response is undefined
+              // This handles the case of CORS errors or network not found
+              this.setState({ isOnline: false });
+            }
+          });
       },
-      5000
+      5000,
     );
 
     const firstNames = [
@@ -118,8 +123,11 @@ class ScheduleViewer extends React.Component {
   }
 
   render() {
+    const onlineText = this.state.isOnline ? 'online' : 'offline';
+
     return (
       <ScrollView style={styles.viewMargin}>
+        <Text>{onlineText}</Text>
         <Datatable
           tableHeader={this.headerJSON}
           tableBody={this.bodyJSON}

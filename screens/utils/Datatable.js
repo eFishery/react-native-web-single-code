@@ -5,18 +5,26 @@ import PropTypes from 'prop-types';
 import TableBody from './component/TableBody';
 import TableHeader from './component/TableHeader';
 import Pagination from './component/Pagination';
+import { filterData, sortData, paginateData } from './helper/TableFeatureHelper';
+
+const styles = StyleSheet.create({
+  viewMargin: {
+    marginTop: 15,
+  },
+});
 
 class Datatable extends React.Component {
   constructor(props) {
     super(props);
 
     // Set up default sort
-    const { tableHeader, defaultSort, defaultRowsPerPage, rowsPerPageOption } = props;
+    const {
+      tableHeader, defaultSort, defaultRowsPerPage, rowsPerPageOption,
+    } = props;
     let initialSort = defaultSort;
 
     if (initialSort.key === '' || typeof initialSort.key === 'undefined') {
-      const headerLength = tableHeader.length;
-      const columnIndex = tableHeader.findIndex(heading => heading.sortable );
+      const columnIndex = tableHeader.findIndex(heading => heading.sortable);
 
       if (columnIndex !== -1) {
         // Exclusive only if at least a column is sortable
@@ -34,12 +42,11 @@ class Datatable extends React.Component {
       sort: initialSort,
       filterText: '',
       pagination,
-      isAllChecked: false,
       checkedObjects: [],
     };
   }
 
-  onSort = (newKey) => () => {
+  onSort = newKey => () => {
     const prevSort = this.state.sort;
     let newSort = {};
 
@@ -59,14 +66,11 @@ class Datatable extends React.Component {
         currentPage: 1,
       },
       filterText: newFilter,
-      isAllChecked: false,
       checkedObjects: [],
     });
   }
 
-  onChangePage = (currentPage) => () => {
-    const hasFirstLast = this.props.hasFirstLast;
-
+  onChangePage = currentPage => () => {
     const pagination = {
       ...this.state.pagination,
       currentPage,
@@ -76,18 +80,17 @@ class Datatable extends React.Component {
   }
 
   onCheckAll = (isAllChecked, filteredData) => () => {
-    const newCheckedObjects = isAllChecked ? [] : filteredData.filter(el => el._checkable);
+    const newCheckedObjects = isAllChecked ? [] : filteredData.filter(el => el.checkable);
 
     this.setState({
-      isAllChecked: !isAllChecked,
       checkedObjects: newCheckedObjects,
     });
   }
 
-  onCheckSingle = (object) => () => {
-    let newState = this.state.checkedObjects;
+  onCheckSingle = object => () => {
+    const newState = this.state.checkedObjects;
     const indexOfObject = newState.findIndex(obj => obj === object);
-    const length = newState.length;
+    const { length } = newState;
 
     if (indexOfObject === -1) {
       // Not found, push
@@ -108,65 +111,6 @@ class Datatable extends React.Component {
     }
   }
 
-  filterData(tableHeader, tableBody, filterText) {
-    const listFilterableKeys = tableHeader.filter(heading => heading.filterable);
-    let filteredRows = tableBody;
-
-    if (listFilterableKeys.length !== 0) {
-      // If #keys is 0, just proceed to sorting
-      const filterableKeysLength = listFilterableKeys.length;
-
-      filteredRows = filteredRows.filter(row => {
-        let isIncluded = false;
-        let idx = 0;
-
-        while (!isIncluded && idx < filterableKeysLength) {
-          const currentKey = listFilterableKeys[idx].key;
-
-          if (row[currentKey].toLowerCase().includes(filterText.toLowerCase())) {
-            isIncluded = true;
-          } else {
-            idx += 1;
-          }
-        }
-
-        return isIncluded;
-      });
-    }
-
-    return filteredRows;
-  }
-
-  sortData(tableHeader, tableBody, sort) {
-    const { key, isAscending } = sort;
-    let sortedData = tableBody;
-
-    if (key !== '') {
-      const sortArray = isAscending ? [1, -1] : [-1, 1];
-
-      sortedData = tableBody.sort((rowA, rowB) => {
-        if (rowA[key] > rowB[key]) {
-          return sortArray[0];
-        }
-
-        return sortArray[1];
-      });
-    }
-
-    return sortedData;
-  }
-
-  paginateData(tableBody) {
-    const { currentPage, rowsPerPage } = this.state.pagination;
-    let paginatedRows = tableBody;
-
-    if (currentPage) {
-      paginatedRows = paginatedRows.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
-    }
-
-    return paginatedRows;
-  }
-
   render() {
     const {
       tableHeader,
@@ -182,18 +126,24 @@ class Datatable extends React.Component {
       bodyCellStyle,
       filterTextStyle,
     } = this.props;
-    const { sort, filterText, pagination, checkedObjects } = this.state;
+    const {
+      sort,
+      filterText,
+      pagination,
+      checkedObjects,
+    } = this.state;
 
     const colFlexLength = colFlexArray.length;
     const headingsLength = tableHeader.length;
 
-    const flexArray = colFlexLength === headingsLength ?  colFlexArray : Array.from(tableHeader, () => 1);
+    const flexArray = colFlexLength === headingsLength ?
+      colFlexArray : Array.from(tableHeader, () => 1);
 
-    const filteredData = this.filterData(tableHeader, tableBody, filterText);
-    const sortedData = this.sortData(tableHeader, filteredData, sort);
-    const paginatedData = this.paginateData(sortedData);
+    const filteredData = filterData(tableHeader, tableBody, filterText);
+    const sortedData = sortData(tableHeader, filteredData, sort);
+    const paginatedData = paginateData(sortedData, pagination);
 
-    const checkableFilteredData = filteredData.filter(el => el._checkable);
+    const checkableFilteredData = filteredData.filter(el => el.checkable);
     const isAllChecked = checkableFilteredData.length === checkedObjects.length;
 
     return (
@@ -250,6 +200,9 @@ Datatable.propTypes = {
   headingCellStyle: PropTypes.object,
   bodyCellStyle: PropTypes.object,
   filterTextStyle: PropTypes.object,
+  buttonWrapperStyle: PropTypes.object,
+  buttonActiveStyle: PropTypes.object,
+  buttonStyle: PropTypes.object,
 };
 
 Datatable.defaultProps = {
@@ -272,14 +225,9 @@ Datatable.defaultProps = {
   },
   buttonStyle: {
     backgroundColor: '#bbb',
-    color: '#fff'
+    color: '#fff',
   },
+  filterTextStyle: {},
 };
-
-const styles = StyleSheet.create({
-  viewMargin: {
-    marginTop: 15,
-  },
-});
 
 export default Datatable;

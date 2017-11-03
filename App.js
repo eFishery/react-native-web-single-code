@@ -1,10 +1,10 @@
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import { Platform } from 'react-native';
+// import { StackNavigator, NavigationActions } from 'react-navigation';
+// import { Platform } from 'react-native';
 // Relative imports
 import ScheduleViewer from './screens/ScheduleViewer';
 // import ScheduleManipulator from './screens/ScheduleManipulator';
 
-let App = ScheduleViewer;
+const App = ScheduleViewer;
 
 // if (Platform.OS !== 'web') {
 //   App = StackNavigator({
@@ -18,8 +18,8 @@ let App = ScheduleViewer;
 //     if (state && action.type === NavigationActions.NAVIGATE) {
 //       const { routes } = state;
 
-//       const getIndexOfRoute = routes.findIndex(({ routeName }) => routeName === action.routeName);
-//       const newLength = getIndexOfRoute === -1 ? routes.length : getIndexOfRoute;
+//       const idxOfRoute = routes.findIndex(({ routeName }) => routeName === action.routeName);
+//       const newLength = idxOfRoute === -1 ? routes.length : idxOfRoute;
 //       const newRoutes = routes.slice(0, newLength).concat({
 //         key: action.routeName,
 //         routeName: action.routeName,

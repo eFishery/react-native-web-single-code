@@ -1,7 +1,9 @@
-import { AppRegistry, Text } from 'react-native';
-
+import React from 'react';
+import { render } from 'react-dom';
 import ScheduleViewer from '../screens/ScheduleViewer';
 
 // App registration and rendering
-AppRegistry.registerComponent('MyApp', () => ScheduleViewer);
-AppRegistry.runApplication('MyApp', { rootTag: document.getElementById('react-root') });
+render(
+  <ScheduleViewer />,
+  document.getElementById('react-root')
+);

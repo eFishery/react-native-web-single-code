@@ -5,6 +5,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react-native": "^4.0.0",
@@ -45,10 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "babel-jest": "^21.2.0",
     "bluebird": "^3.5.1",
-    "classnames": "^2.2.5",
-    "create-react-app": "^1.4.1",
     "date-fns": "^1.29.0",
     "dotenv": "^4.0.0",
     "font-awesome": "^4.7.0",

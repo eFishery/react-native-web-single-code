@@ -13,17 +13,7 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-# PHP files in the whole project
-[*.php]
-indent_style = space
-indent_size = 4
-
 # JS files in the whole project
 [**.{js,json}]
-indent_style = space
-indent_size = 2
-
-# SCSS, CSS files in the whole project
-[**.{scss,css}]
 indent_style = space
 indent_size = 2

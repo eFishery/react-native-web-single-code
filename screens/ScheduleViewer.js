@@ -90,9 +90,7 @@ class ScheduleViewer extends React.Component {
 
     this.headerJSON = [
       { key: 'checkbox', title: 'Checkbox', checkbox: true },
-      {
-        key: 'name', title: 'Name', sortable: true, filterable: true,
-      },
+      { key: 'name', title: 'Name', sortable: true, filterable: true },
       { key: 'score', title: 'Score', sortable: true },
     ];
     this.bodyJSON = [];
@@ -104,7 +102,7 @@ class ScheduleViewer extends React.Component {
       this.bodyJSON.push({
         name: `${firstNames[firstNameIdx]} ${lastNames[lastNameIdx]}`,
         score: Math.floor(Math.random() * 101),
-        _checkable: Math.floor(Math.random() * 2) === 0,
+        checkable: Math.floor(Math.random() * 2) === 0,
       });
     }
 

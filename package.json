@@ -33,7 +33,6 @@
     "webpack-md5-hash": "0.0.5"
   },
   "scripts": {
-    "precommit": "test, build",
     "start": "react-native start",
     "link": "react-native link",
     "android": "react-native run-android",
@@ -77,5 +76,6 @@
     "moduleFileExtensions": [
       "js"
     ]
-  }
+  },
+  "pre-commit": ["test", "build"]
 }

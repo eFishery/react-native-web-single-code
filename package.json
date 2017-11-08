@@ -22,6 +22,7 @@
     "hard-source-webpack-plugin": "^0.4.11",
     "html-webpack-plugin": "^2.26.0",
     "image-webpack-loader": "^3.4.2",
+    "jest": "^21.2.1",
     "pre-commit": "^1.2.2",
     "react-scripts": "^1.0.14",
     "react-test-renderer": "16.0.0-alpha.12",
@@ -32,21 +33,27 @@
     "webpack-md5-hash": "0.0.5"
   },
   "scripts": {
+    "precommit": "test, build",
     "start": "react-native start",
     "link": "react-native link",
     "android": "react-native run-android",
     "android:bundle-dev": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "ios": "react-native run-ios",
     "wds": "webpack-dev-server --config ./web/webpack.config.js",
-    "test": "node node_modules/jest/bin/jest.js screens/**/*.js && npm run eslint",
-    "eslint": "./node_modules/.bin/eslint --fix ./App.js ./screens/**/*.js",
-    "build:web": "NODE_ENV=production webpack --config ./web/webpack.config.js",
+    "jest": "jest",
+    "eslint": "eslint --fix ./screens/**/*.js ./web/index.js",
+    "test": "npm run jest && npm run eslint",
+    "clean": "node ./web/build-scripts/DeleteOldFiles.js",
+    "build": "npm run build:web && npm run build:native",
+    "build:web": "npm run clean && NODE_ENV=production webpack --config ./web/webpack.config.js",
     "build:native": "cd android && ./gradlew assembleRelease",
     "analyze": "webpack --config ./web/webpack.config.js --json | webpack-bundle-size-analyzer"
   },
   "dependencies": {
+    "@redux-offline/redux-offline": "^2.2.0",
     "axios": "^0.17.0",
-    "bluebird": "^3.5.1",
+    "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.5",
     "date-fns": "^1.29.0",
     "dotenv": "^4.0.0",
     "font-awesome": "^4.7.0",
@@ -59,6 +66,16 @@
     "react-native-vector-icons": "^4.4.2",
     "react-native-web": "^0.1.12",
     "react-navigation": "^1.0.0-beta.13",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.2.2",
     "victory-native": "^0.15.0"
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js)$",
+    "moduleFileExtensions": [
+      "js"
+    ]
   }
 }

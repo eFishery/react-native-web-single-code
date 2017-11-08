@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import sendHeadRequest from './ConnectionHelper';
 import ConnectionError from './ConnectionError';
 

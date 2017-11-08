@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, ScrollView, Text } from 'react-native';
-import CheckBox from './utils/component/CheckBox';
+import { StyleSheet, ScrollView } from 'react-native';
+import Entry from './Entry';
 // Relative imports
 // import Chart from './utils/Chart';
-import checkConnection from './utils/helper/CheckConnection';
-import Datatable from './utils/Datatable';
+// import Datatable from './utils/Datatable';
 
 const styles = StyleSheet.create({
   viewMargin: {
@@ -25,23 +24,6 @@ class ScheduleViewer extends React.Component {
 
   constructor() {
     super();
-
-    setInterval(
-      () => {
-        checkConnection()
-          .then(({ type, effectiveType }) => {
-            this.setState({ isOnline: true });
-          })
-          .catch(({ response, request }) => {
-            if (request && !response) {
-              // If request is present but response is undefined
-              // This handles the case of CORS errors or network not found
-              this.setState({ isOnline: false });
-            }
-          });
-      },
-      5000,
-    );
 
     const firstNames = [
       'Aaren',
@@ -90,7 +72,9 @@ class ScheduleViewer extends React.Component {
 
     this.headerJSON = [
       { key: 'checkbox', title: 'Checkbox', checkbox: true },
-      { key: 'name', title: 'Name', sortable: true, filterable: true },
+      {
+        key: 'name', title: 'Name', sortable: true, filterable: true,
+      },
       { key: 'score', title: 'Score', sortable: true },
     ];
     this.bodyJSON = [];
@@ -110,22 +94,40 @@ class ScheduleViewer extends React.Component {
     this.bodyCellStyle = { padding: 5 };
     this.filterTextStyle = { height: 40 };
 
-    this.onChangeScreen = this.onChangeScreen.bind(this);
+    // this.onChangeScreen = this.onChangeScreen.bind(this);
 
-    this.state = { isOnline: true };
+    // this.state = { isOnline: true };
   }
 
-  onChangeScreen() {
-    const { navigate } = this.props.navigation;
-    navigate('ScheduleManipulator');
+  // onChangeScreen() {
+  //   const { navigate } = this.props.navigation;
+  //   navigate('ScheduleManipulator');
+  // }
+
+  onCounterChange = (action, currentCounter, id) => () => {
+    const doAction = {
+      increment: this.props.increment,
+      decrement: this.props.decrement,
+      reset: this.props.reset,
+    };
+
+    doAction[action](currentCounter, id);
   }
 
   render() {
-    const onlineText = this.state.isOnline ? 'online' : 'offline';
+    const entries = this.props.count.counter.reduce((all, cur) => {
+      const { id, counter, sync } = cur;
 
-    return (
-      <ScrollView style={styles.viewMargin}>
-        <Text>{onlineText}</Text>
+      return all.concat(<Entry
+        key={`${id}-entry-things`}
+        marginTop={{ marginTop: 25 }}
+        entryId={id}
+        counter={counter}
+        onCounterChange={this.onCounterChange}
+        sync={sync}
+      />);
+    }, []);
+    /*
         <Datatable
           tableHeader={this.headerJSON}
           tableBody={this.bodyJSON}
@@ -137,6 +139,11 @@ class ScheduleViewer extends React.Component {
           bodyCellStyle={this.bodyCellStyle}
           filterTextStyle={this.filterTextStyle}
         />
+    */
+
+    return (
+      <ScrollView style={styles.viewMargin}>
+        {entries}
       </ScrollView>
     );
   }
@@ -144,6 +151,10 @@ class ScheduleViewer extends React.Component {
 
 ScheduleViewer.propTypes = {
   // navigation: PropTypes.object.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  count: PropTypes.object.isRequired,
 };
 
 export default ScheduleViewer;

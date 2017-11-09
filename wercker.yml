@@ -1,5 +1,5 @@
 # box: sumartoyo/android-nodejs:latest
-box: ans4175/docker-android-nodejs-react:latest
+box: imballinst/docker-android-nodejs:latest
 
 # Build definition
 build:

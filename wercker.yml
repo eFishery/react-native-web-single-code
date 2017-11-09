@@ -65,7 +65,7 @@ build_apk:
         code: |
           npm install
           cd android
-          ./gradlew assembleRelease
+          ./gradlew --debug assembleRelease
     - script:
         name: send apk prod
         code: |

@@ -10,7 +10,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react-native": "^4.0.0",
     "babel-preset-stage-2": "^6.24.1",
-    "chunk-manifest-webpack-plugin": "^1.0.0",
+    "chunk-manifest-webpack-plugin": "1.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-babel": "^4.1.2",

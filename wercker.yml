@@ -1,5 +1,6 @@
 # box: peterlazar1993/react-native-android:latest
-box: nao20010128nao/android-build:latest
+# box: nao20010128nao/android-build:latest
+box: sumartoyo/android-nodejs:latest
 # Build definition
 build:
   # The steps that will be executed on build

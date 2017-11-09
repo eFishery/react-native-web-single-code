@@ -62,6 +62,8 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
+          ls /opt/android-ndk
+          ls /opt/android-ndk/android-ndk-r13b
           npm install --prod
           cd android
           ./gradlew assembleRelease

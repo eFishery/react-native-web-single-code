@@ -61,6 +61,7 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
+          npm install --prod
           cd android
           ./gradlew assembleRelease
     - script:

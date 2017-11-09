@@ -1,6 +1,6 @@
 {
   "name": "yolo-react-native-offline",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",

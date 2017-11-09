@@ -11,6 +11,7 @@ build:
           cd android
           ./gradlew -v
           echo $ANDROID_HOME
+          ls /opt/android-ndk/android-ndk-r13b/
     # - script:
     #     name: show base information
     #     code: |
@@ -62,9 +63,6 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
-          ls /opt/
-          ls /opt/android-ndk
-          ls /opt/android-ndk/android-ndk-r13b
           npm install --prod
           cd android
           ./gradlew assembleRelease

@@ -61,11 +61,11 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
+          cd android
           ./gradlew assembleRelease
     - script:
         name: send apk prod
         code: |
-          cd ..
           ./post_slack.sh "@android/app/build/outputs/apk/app-prod-release.apk" "botwercker" $SLACK_TOKEN "YOLO-$WERCKER_GIT_BRANCH"
   after-steps:
     - slack-notifier:

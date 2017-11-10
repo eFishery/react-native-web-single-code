@@ -10,6 +10,13 @@ build:
         code: |
           cd android
           ./gradlew -v
+          echo "+++ SET ANDROID SDK +++"
+          export ANDROID_SDK=/opt/android-sdk-linux
+          echo $ANDROID_SDK
+          echo "+++ CREATE LOCAL PROPERTIES +++"
+          touch local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
           echo "+++ ANDROID SDK +++"
           echo $ANDROID_HOME
           ls $ANDROID_HOME

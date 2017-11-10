@@ -38,7 +38,7 @@ build:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot
 deploy_web:
   steps:
     - add-to-known_hosts@1.4.0:

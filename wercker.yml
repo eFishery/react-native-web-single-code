@@ -10,6 +10,8 @@ build:
         code: |
           cd android
           ./gradlew -v
+          echo "+++ WHICH FILE +++"
+          which file
           echo "+++ SET ANDROID SDK +++"
           export ANDROID_SDK=/opt/android-sdk-linux
           echo $ANDROID_SDK

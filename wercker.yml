@@ -1,5 +1,5 @@
-box: imballinst/hahaa:test-1
-# box: peterlazar1993/react-native-android
+# box: imballinst/hahaa:test-1
+box: ans4175/docker-android-nodejs-react:latest
 
 # Build definition
 build:

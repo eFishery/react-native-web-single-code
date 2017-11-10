@@ -1,5 +1,5 @@
 # box: sumartoyo/android-nodejs:latest
-box: imballinst/hahaa:latest
+box: imballinst/hahaa:test-1
 
 # Build definition
 build:
@@ -65,7 +65,7 @@ build_apk:
         code: |
           npm install
           cd android
-          ./gradlew --debug assembleRelease
+          ./gradlew assembleRelease
     - script:
         name: send apk prod
         code: |

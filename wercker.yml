@@ -10,10 +10,6 @@ build:
         code: |
           cd android
           ./gradlew -v
-          echo $ANDROID_HOME
-          ls /opt/
-          ls /opt/android-ndk
-          ls /opt/android-ndk/android-ndk-r10e/
     # - script:
     #     name: show base information
     #     code: |
@@ -67,7 +63,7 @@ build_apk:
         code: |
           npm install
           cd android
-          ./gradlew assembleRelease
+          ./gradlew --info assembleRelease
     - script:
         name: send apk prod
         code: |

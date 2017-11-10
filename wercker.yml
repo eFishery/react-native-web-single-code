@@ -16,6 +16,9 @@ build:
           echo "+++ ANDROID NDK +++"
           echo $ANDROID_NDK
           ls $ANDROID_NDK
+          echo "+++ PATH +++"
+          echo $PATH
+          ls $PATH
     # - script:
     #     name: show base information
     #     code: |

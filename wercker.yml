@@ -1,5 +1,5 @@
-box: imballinst/hahaa:latest
-# box: ans4175/docker-android-nodejs-react:latest
+# box: imballinst/hahaa:latest
+box: ans4175/docker-android-nodejs-react:latest
 
 # Build definition
 build:
@@ -16,7 +16,9 @@ build:
           echo "+++ CREATE LOCAL PROPERTIES +++"
           touch local.properties
           echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
-          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
+    #      # echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
+          echo "ndk.dir=/opt/android-ndk" >> local.properties
+          cat local.properties
           echo "+++ ANDROID SDK +++"
           echo $ANDROID_HOME
           ls $ANDROID_HOME

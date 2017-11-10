@@ -65,7 +65,7 @@ deploy_web:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot
 build_apk:
   # The steps that will be executed on build
   steps:
@@ -85,9 +85,9 @@ build_apk:
     - script:
         name: send apk prod
         code: |
-          ./post_slack.sh "@android/app/build/outputs/apk/app-prod-release.apk" "botwercker" $SLACK_TOKEN "YOLO-$WERCKER_GIT_BRANCH"
+          ./post_slack.sh "@android/app/build/outputs/apk/app-prod-release.apk" "public-testing-bot" $SLACK_TOKEN "YOLO-$WERCKER_GIT_BRANCH"
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot

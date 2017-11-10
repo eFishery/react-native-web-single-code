@@ -11,6 +11,8 @@ build:
           cd android
           ./gradlew -v
           echo $ANDROID_HOME
+          ls /opt/
+          ls /opt/android-ndk
           ls /opt/android-ndk/android-ndk-r13b/
     # - script:
     #     name: show base information

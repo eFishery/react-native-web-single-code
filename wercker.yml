@@ -1,5 +1,5 @@
-# box: imballinst/hahaa:test-1
-box: peterlazar1993/react-native-android
+box: imballinst/hahaa:test-1
+# box: peterlazar1993/react-native-android
 
 # Build definition
 build:
@@ -10,8 +10,12 @@ build:
         code: |
           cd android
           ./gradlew -v
+          echo "+++ ANDROID SDK +++"
           echo $ANDROID_HOME
           ls $ANDROID_HOME
+          echo "+++ ANDROID NDK +++"
+          echo $ANDROID_NDK
+          ls $ANDROID_NDK
     # - script:
     #     name: show base information
     #     code: |

@@ -16,7 +16,6 @@ build:
           echo "+++ CREATE LOCAL PROPERTIES +++"
           touch local.properties
           echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
-    #      # echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
           echo "ndk.dir=/opt/android-ndk" >> local.properties
           cat local.properties
           echo "+++ ANDROID SDK +++"
@@ -30,6 +29,7 @@ build:
           ls $ANDROID_NDK
           echo "+++ PATH +++"
           echo $PATH
+    #     echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
     # - script:
     #     name: show base information
     #     code: |

@@ -18,7 +18,6 @@ build:
           ls $ANDROID_NDK
           echo "+++ PATH +++"
           echo $PATH
-          ls $PATH
     # - script:
     #     name: show base information
     #     code: |

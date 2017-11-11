@@ -87,6 +87,10 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
+          echo "+++ MAKE AND FILE +++"
+          make -v
+          file -v
+          echo "+++ BEGIN BUILD +++"
           npm install
           cd android
           ./gradlew --info --stacktrace assembleRelease

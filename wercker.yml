@@ -37,6 +37,8 @@ build:
           ls $ANDROID_HOME/cmake/bin
           ln -s $ANDROID_HOME/cmake/bin/cmake /usr/bin/make
           export PATH=$PATH:${GNUMAKE}
+          make -v
+          file -v
           echo $PATH
     # - script:
     #     name: show base information

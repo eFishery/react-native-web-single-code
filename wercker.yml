@@ -78,10 +78,10 @@ build_apk:
           export ANDROID_SDK=/opt/android-sdk-linux
           echo $ANDROID_SDK
           echo "+++ CREATE LOCAL PROPERTIES +++"
-          touch local.properties
-          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
-          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
-          cat local.properties
+          touch android/local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> android/local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> android/local.properties
+          cat android/local.properties
           echo "+++ MAKE AND FILE +++"
           apt-get update && apt-get install -y file build-essential
           make -v

@@ -13,8 +13,7 @@ build:
           echo "+++ UNAME +++"
           uname -a
           echo "+++ FILE VERSION +++"
-          apt-get update && apt-get install -y file
-          file -v
+          apt-get update && apt-get install -y file build-essential
           echo "+++ SET ANDROID SDK +++"
           export ANDROID_SDK=/opt/android-sdk-linux
           echo $ANDROID_SDK
@@ -32,13 +31,10 @@ build:
           echo "+++ ANDROID NDK +++"
           echo $ANDROID_NDK
           ls $ANDROID_NDK
-          echo "+++ GNUMAKE +++"
-          export GNUMAKE=/opt/android-sdk-linux/cmake
-          ls $ANDROID_HOME/cmake/bin
-          ln -s $ANDROID_HOME/cmake/bin/cmake /usr/bin/make
-          export PATH=$PATH:${GNUMAKE}
+          echo "+++ MAKE AND FILE +++"
           make -v
           file -v
+          echo "+++ PATH +++"
           echo $PATH
     # - script:
     #     name: show base information

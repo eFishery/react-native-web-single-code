@@ -33,6 +33,8 @@ build:
           echo $ANDROID_NDK
           ls $ANDROID_NDK
           echo "+++ PATH +++"
+          export CMAKE_HOME=/opt/android-sdk-linux/cmake/android-cmake
+          export PATH=$PATH:${CMAKE_HOME}
           echo $PATH
     # - script:
     #     name: show base information

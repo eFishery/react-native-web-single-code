@@ -13,7 +13,7 @@ build:
           echo "+++ UNAME +++"
           uname -a
           echo "+++ FILE VERSION +++"
-          apt-get install file
+          apt-get update && apt-get install file
           file -v
           echo "+++ SET ANDROID SDK +++"
           export ANDROID_SDK=/opt/android-sdk-linux

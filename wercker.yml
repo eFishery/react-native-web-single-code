@@ -35,7 +35,7 @@ build:
           echo "+++ GNUMAKE +++"
           export GNUMAKE=/opt/android-sdk-linux/cmake/android-cmake
           ls $ANDROID_HOME/cmake/bin
-          ls $GNUMAKE/cmake
+          ln -s $ANDROID_HOME/cmake/bin/cmake /usr/bin/make
           export PATH=$PATH:${GNUMAKE}
           echo $PATH
     # - script:

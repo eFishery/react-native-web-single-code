@@ -10,6 +10,8 @@ build:
         code: |
           cd android
           ./gradlew -v
+          echo "+++ UNAME +++"
+          uname -a
           echo "+++ FILE VERSION +++"
           apt-get install file
           file -v

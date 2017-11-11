@@ -12,16 +12,9 @@ build:
           ./gradlew -v
           echo "+++ UNAME +++"
           uname -a
-          echo "+++ FILE VERSION +++"
-          apt-get update && apt-get install -y file build-essential
           echo "+++ SET ANDROID SDK +++"
           export ANDROID_SDK=/opt/android-sdk-linux
           echo $ANDROID_SDK
-          echo "+++ CREATE LOCAL PROPERTIES +++"
-          touch local.properties
-          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
-          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
-          cat local.properties
           echo "+++ ANDROID SDK +++"
           echo $ANDROID_HOME
           ls $ANDROID_HOME
@@ -31,9 +24,6 @@ build:
           echo "+++ ANDROID NDK +++"
           echo $ANDROID_NDK
           ls $ANDROID_NDK
-          echo "+++ MAKE AND FILE +++"
-          make -v
-          file -v
           echo "+++ PATH +++"
           echo $PATH
     # - script:
@@ -87,7 +77,13 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
+          echo "+++ CREATE LOCAL PROPERTIES +++"
+          touch local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
+          cat local.properties
           echo "+++ MAKE AND FILE +++"
+          apt-get update && apt-get install -y file build-essential
           make -v
           file -v
           echo "+++ BEGIN BUILD +++"

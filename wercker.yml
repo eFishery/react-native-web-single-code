@@ -11,6 +11,7 @@ build:
           cd android
           ./gradlew -v
           echo "+++ FILE VERSION +++"
+          echo "apt-get install file"
           file -v
           echo "+++ SET ANDROID SDK +++"
           export ANDROID_SDK=/opt/android-sdk-linux

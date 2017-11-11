@@ -32,9 +32,9 @@ build:
           echo "+++ ANDROID NDK +++"
           echo $ANDROID_NDK
           ls $ANDROID_NDK
-          echo "+++ PATH +++"
-          export CMAKE_HOME=/opt/android-sdk-linux/cmake/android-cmake
-          export PATH=$PATH:${CMAKE_HOME}
+          echo "+++ GNUMAKE +++"
+          export GNUMAKE=/opt/android-sdk-linux/cmake/android-cmake
+          export PATH=$PATH:${GNUMAKE}
           echo $PATH
     # - script:
     #     name: show base information

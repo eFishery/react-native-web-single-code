@@ -1,4 +1,4 @@
-box: imballinst/hahaa:test-1
+box: imballinst/hahaa:latest
 # box: ans4175/docker-android-nodejs-react:latest
 
 # Build definition
@@ -13,8 +13,8 @@ build:
           echo "+++ UNAME +++"
           uname -a
           echo "+++ ANDROID SDK +++"
-          echo $ANDROID_HOME
-          ls $ANDROID_HOME
+          echo $ANDROID_SDK
+          ls $ANDROID_SDK
           echo "+++ ANDROID SDK BUILD TOOLS +++"
           echo $ANDROID_HOME/build-tools
           ls $ANDROID_HOME/build-tools
@@ -23,6 +23,11 @@ build:
           ls $ANDROID_NDK
           echo "+++ PATH +++"
           echo $PATH
+    # echo "+++ CREATE LOCAL PROPERTIES +++"
+    # touch android/local.properties
+    # echo "sdk.dir=/opt/android-sdk-linux" >> android/local.properties
+    # echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> android/local.properties
+    # cat android/local.properties
     # - script:
     #     name: show base information
     #     code: |
@@ -74,18 +79,6 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
-          echo "+++ SET ANDROID SDK +++"
-          export ANDROID_SDK=/opt/android-sdk-linux
-          echo $ANDROID_SDK
-          echo "+++ CREATE LOCAL PROPERTIES +++"
-          touch android/local.properties
-          echo "sdk.dir=/opt/android-sdk-linux" >> android/local.properties
-          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> android/local.properties
-          cat android/local.properties
-          echo "+++ MAKE AND FILE +++"
-          apt-get update && apt-get install -y file build-essential
-          make -v
-          file -v
           echo "+++ BEGIN BUILD +++"
           npm install
           cd android

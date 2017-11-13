@@ -1,0 +1,95 @@
+box: imballinst/hahaa:latest
+# box: ans4175/docker-android-nodejs-react:latest
+
+# Build definition
+build:
+  # The steps that will be executed on build
+  steps:
+    - script:
+        name: show base information
+        code: |
+          cd android
+          ./gradlew -v
+          echo "+++ UNAME +++"
+          uname -a
+          echo "+++ ANDROID SDK +++"
+          echo $ANDROID_SDK
+          ls $ANDROID_SDK
+          echo "+++ ANDROID SDK BUILD TOOLS +++"
+          echo $ANDROID_HOME/build-tools
+          ls $ANDROID_HOME/build-tools
+          echo "+++ ANDROID NDK +++"
+          echo $ANDROID_NDK
+          ls $ANDROID_NDK
+          echo "+++ CREATE LOCAL PROPERTIES +++"
+          touch local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
+          cat local.properties
+          echo "+++ PATH +++"
+          echo $PATH
+    # - script:
+    #     name: show base information
+    #     code: |
+    #       ./gradlew -v
+    #       echo $ANDROID_HOME
+    #       echo y | android update sdk --no-ui --all --filter "android-19,build-tools-25.0.2,android-21,android-24"
+    #       echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+    #       echo y | android update sdk --no-ui --all --filter "extra-android-support"
+    #       echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
+    #       echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services"
+    # - script:
+    #     name: run test app
+    #     code: ./gradlew test
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        username: Lie Eng
+        channel: public-testing-bot
+deploy_web:
+  steps:
+    - add-to-known_hosts@1.4.0:
+        hostname: 52.221.204.71
+    - mktemp:
+        envvar: PRIVATEKEY_PATH
+    - create-file:
+        name: write key
+        filename: $PRIVATEKEY_PATH
+        content: $innovation_PRIVATE
+        overwrite: true
+        hide-from-log: true
+    - script:
+        name: transfer to host
+        code: ssh -i $PRIVATEKEY_PATH ubuntu@52.221.204.71 '~/deploy_rn.sh'
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        username: Lie Eng
+        channel: public-testing-bot
+build_apk:
+  # The steps that will be executed on build
+  steps:
+    - install-packages:
+      packages: openssl
+    - script:
+      name: decrypt key signing
+      code: |
+          cd android
+          openssl enc -in app/my-release-key.enc -out app/my-release-key.keystore -d -aes256 -k $DECRYPTION_KEY
+    - script:
+        name: build prod signed apk
+        code: |
+          echo "+++ BEGIN BUILD +++"
+          npm install
+          cd android
+          ./gradlew --info --stacktrace assembleRelease
+    - script:
+        name: send apk prod
+        code: |
+          ./post_slack.sh "@android/app/build/outputs/apk/app-armeabi-v7a-release.apk" "public-testing-bot" $SLACK_TOKEN "YOLO-ARM-$WERCKER_GIT_BRANCH"
+          ./post_slack.sh "@android/app/build/outputs/apk/app-x86-release.apk" "public-testing-bot" $SLACK_TOKEN "YOLO-X86-$WERCKER_GIT_BRANCH"
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_WEBHOOK_URL
+        username: Lie Eng
+        channel: public-testing-bot

@@ -1,6 +1,6 @@
 {
   "name": "yolo-react-native-offline",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -43,7 +43,7 @@
     "eslint": "eslint --fix ./screens/**/*.js ./web/index.js",
     "test": "npm run jest && npm run eslint",
     "clean": "node ./web/build-scripts/DeleteOldFiles.js",
-    "build": "npm run build:web && npm run build:native",
+    "build": "npm run build:web",
     "build:web": "npm run clean && NODE_ENV=production webpack --config ./web/webpack.config.js",
     "build:native": "cd android && ./gradlew assembleRelease",
     "analyze": "webpack --config ./web/webpack.config.js --json | webpack-bundle-size-analyzer"
@@ -77,5 +77,8 @@
       "js"
     ]
   },
-  "pre-commit": ["test", "build"]
+  "pre-commit": [
+    "test",
+    "build"
+  ]
 }

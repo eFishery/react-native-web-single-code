@@ -1,5 +1,5 @@
-# box: sumartoyo/android-nodejs:latest
 box: imballinst/hahaa:latest
+# box: ans4175/docker-android-nodejs-react:latest
 
 # Build definition
 build:
@@ -10,7 +10,24 @@ build:
         code: |
           cd android
           ./gradlew -v
-          echo $ANDROID_HOME
+          echo "+++ UNAME +++"
+          uname -a
+          echo "+++ ANDROID SDK +++"
+          echo $ANDROID_SDK
+          ls $ANDROID_SDK
+          echo "+++ ANDROID SDK BUILD TOOLS +++"
+          echo $ANDROID_HOME/build-tools
+          ls $ANDROID_HOME/build-tools
+          echo "+++ ANDROID NDK +++"
+          echo $ANDROID_NDK
+          ls $ANDROID_NDK
+          echo "+++ CREATE LOCAL PROPERTIES +++"
+          touch local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
+          cat local.properties
+          echo "+++ PATH +++"
+          echo $PATH
     # - script:
     #     name: show base information
     #     code: |
@@ -28,7 +45,7 @@ build:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot
 deploy_web:
   steps:
     - add-to-known_hosts@1.4.0:
@@ -48,7 +65,7 @@ deploy_web:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot
 build_apk:
   # The steps that will be executed on build
   steps:
@@ -62,18 +79,17 @@ build_apk:
     - script:
         name: build prod signed apk
         code: |
-          ls /opt/
-          ls /opt/android-ndk
-          ls /opt/android-ndk/android-ndk-r13b
-          npm install --prod
+          echo "+++ BEGIN BUILD +++"
+          npm install
           cd android
-          ./gradlew assembleRelease
+          ./gradlew --info --stacktrace assembleRelease
     - script:
         name: send apk prod
         code: |
-          ./post_slack.sh "@android/app/build/outputs/apk/app-prod-release.apk" "botwercker" $SLACK_TOKEN "YOLO-$WERCKER_GIT_BRANCH"
+          ./post_slack.sh "@android/app/build/outputs/apk/app-armeabi-v7a-release.apk" "public-testing-bot" $SLACK_TOKEN "YOLO-ARM-$WERCKER_GIT_BRANCH"
+          ./post_slack.sh "@android/app/build/outputs/apk/app-x86-release.apk" "public-testing-bot" $SLACK_TOKEN "YOLO-X86-$WERCKER_GIT_BRANCH"
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
         username: Lie Eng
-        channel: botwercker
+        channel: public-testing-bot

@@ -1,5 +1,4 @@
-box: imballinst/hahaa:latest
-# box: ans4175/docker-android-nodejs-react:latest
+box: imballinst/docker-android-react-native:test-1
 
 # Build definition
 build:
@@ -28,19 +27,6 @@ build:
           cat local.properties
           echo "+++ PATH +++"
           echo $PATH
-    # - script:
-    #     name: show base information
-    #     code: |
-    #       ./gradlew -v
-    #       echo $ANDROID_HOME
-    #       echo y | android update sdk --no-ui --all --filter "android-19,build-tools-25.0.2,android-21,android-24"
-    #       echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
-    #       echo y | android update sdk --no-ui --all --filter "extra-android-support"
-    #       echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
-    #       echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services"
-    # - script:
-    #     name: run test app
-    #     code: ./gradlew test
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL

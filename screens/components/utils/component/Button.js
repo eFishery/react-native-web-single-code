@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-native-elements/src/buttons/Button';
 
-const btn = props => {
-  return (<Button {...props} />)
+const btn = ({ style, ...restProps }) => {
+  return (<Button {...style} {...restProps} />)
 };
 
 btn.propTypes = {

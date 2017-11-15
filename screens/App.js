@@ -1,16 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './store/store.js';
-import ScheduleViewerContainer from './containers/ScheduleViewerContainer.js';
+import store from './store/store';
+import NavigatorContainer from './containers/NavigatorContainer';
 
-class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <ScheduleViewerContainer />
-      </Provider>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <NavigatorContainer />
+  </Provider>
+);
 
 export default App;

@@ -1,0 +1,27 @@
+$sidebar_heading: #289b81;
+
+$aquamarine: #1b96a0;
+$light_aquamarine: #dbfff7;
+
+$sea_green: #1ca58b;
+$forest_green: #05604b;
+$soft_green: #26ba9a;
+$light_green: #a7fae8;
+$white_green: #dffef7;
+
+$grey: #d1d1d1;
+$white_grey: #f6f6f6;
+$antique_grey: #576361;
+$light_grey: #dbdbdb;
+$soft_grey: #9bad9d;
+$dark_grey: #979797;
+
+$silver: #ccc;
+$platinum: #454545;
+
+$orange: #ee5f07;
+$light_orange: #f4af01;
+
+$blue: #588bd4;
+$light_blue: #22d9e9;
+$dark_blue: #26a1ab;

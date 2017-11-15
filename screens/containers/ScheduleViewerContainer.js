@@ -2,9 +2,7 @@ import { connect } from 'react-redux';
 import { increment, decrement, reset } from '../actions/counterActions';
 import ScheduleViewer from '../components/ScheduleViewer';
 
-const mapStateToProps = state => ({
-  count: state,
-});
+const mapStateToProps = ({ counter }) => ({ counter });
 
 const mapDispatchToProps = dispatch => ({
   increment: (lastVal, id) => dispatch(increment(lastVal, id)),

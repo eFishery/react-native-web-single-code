@@ -1,24 +1,4 @@
 {
-  "expo": {
-    "name": "Test App",
-    "icon": "./web/public/feelsgoodman.png",
-    "version": "1.0.0",
-    "slug": "test-app",
-    "sdkVersion": "21.0.0",
-    "packagerOpts": {
-      "assetExts": [
-        "ttf"
-      ]
-    },
-    "android": {
-      "package": "com.efishery.test"
-    },
-    "loading": {
-      "backgroundColor": "#FFFFFF",
-      "backgroundImage": "./web/public/feelsgoodman.png",
-      "icon": "./web/public/feelsgoodman.png"
-    }
-  },
   "name": "yoloreactnativeoffline",
   "displayName": "Test App"
 }

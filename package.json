@@ -45,7 +45,7 @@
     "test": "npm run jest && npm run eslint",
     "clean": "node ./web/build-scripts/DeleteOldFiles.js",
     "build": "npm run build:web",
-    "build:web": "npm run clean && NODE_ENV=production webpack --config ./web/webpack.config.js",
+    "build:web": "npm run clean && NODE_ENV=production webpack --config ./web/webpack.config.js && git add -A",
     "build:native": "cd android && ./gradlew assembleRelease",
     "analyze": "webpack --config ./web/webpack.config.js --json | webpack-bundle-size-analyzer"
   },

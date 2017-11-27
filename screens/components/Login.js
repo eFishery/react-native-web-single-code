@@ -37,7 +37,7 @@ const style = StyleSheet.create({
   textInput: {
     padding: 5,
     marginBottom: 15,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: '#000',
     alignItems: 'stretch',
   },

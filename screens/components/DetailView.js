@@ -38,7 +38,7 @@ class DetailView extends React.Component {
             <View>
               <Text>Hello World!</Text>
               <Button
-                style={{ color: '#fff' }}
+                style={{ color: '#fff', backgroundColor: '#bbb' }}
                 title="Hide Modal"
                 onPress={this.onRequestClose}
               />
@@ -47,7 +47,7 @@ class DetailView extends React.Component {
         </Modal>
 
         <Button
-          style={{ color: '#fff' }}
+          style={{ color: '#fff', backgroundColor: '#bbb' }}
           title="Show Modal"
           onPress={this.onOpenModal}
         />

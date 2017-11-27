@@ -9,8 +9,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 import Login from './containers/Login';
 import Home from './containers/Home';
-import TableView from './components/TableView';
-import DetailView from './components/DetailView';
+import TableView from './containers/TableView';
+import DetailView from './containers/DetailView';
 
 const navigation = {navigate: (route) => store.dispatch(push(route))};
 const isLoggedIn = () => store.getState().auth.isLoggedIn;

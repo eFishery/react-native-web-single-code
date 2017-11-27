@@ -5,7 +5,7 @@ import SidebarItem from './SidebarItem';
 
 const style = {
   sidebar: { position: 'fixed', width: 250 },
-  list: { listStyle: 'none' },
+  list: { listStyle: 'none', padding: 0 },
 };
 
 const Sidebar = ({ location, navigation }) => (

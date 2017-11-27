@@ -1,11 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './store/store';
-import NavigatorContainer from './containers/NavigatorContainer';
+import store from './store';
+import AppNavigator from './routers';
+import TableView from './components/TableView';
 
 const App = () => (
   <Provider store={store}>
-    <NavigatorContainer />
+    <AppNavigator />
   </Provider>
 );
 

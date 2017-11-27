@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, ScrollView } from 'react-native';
-import Button from './utils/component/Button';
+import Button from './modules/Button';
 import Entry from './Entry';
 // Relative imports
 // import {
@@ -11,8 +11,8 @@ import Entry from './Entry';
 //   bodyCellStyle,
 //   filterTextStyle,
 // } from './assets/Data';
-// import Chart from './utils/Chart';
-// import Datatable from './utils/Datatable';
+// import Chart from './Chart';
+// import Datatable from './Datatable';
 
 const styles = StyleSheet.create({
   viewMargin: {

@@ -8,6 +8,7 @@ const NodeObjectHash = require('node-object-hash');
 
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackMd5Hash = require('webpack-md5-hash');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -98,6 +99,10 @@ if (isProd) {
       filename: './index.html',
       inject: true,
       template: './templates/index-prod.ejs',
+    }),
+    new ExtractTextPlugin({
+      filename: 'css/[name].[chunkhash].css',
+      allChunks: true,
     })
   );
 
@@ -128,9 +133,27 @@ if (isProd) {
       }
     }
   );
+
+  loaders.push(
+    {
+      test: /\.(css)$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader',
+      }),
+    }
+  );
 } else {
   plugins.push(new webpack.HotModuleReplacementPlugin());
   imageLoader.push('file-loader?name=img/[name].[ext]');
+
+  loaders.push({
+    test: /\.(css)$/,
+    use: [
+      'style-loader',
+      'css-loader',
+    ]
+  });
 }
 
 // If

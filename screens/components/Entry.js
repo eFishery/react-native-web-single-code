@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
-import Button from './utils/component/Button';
+import Button from './modules/Button';
 
 const Entry = ({
   marginTop, counter, onCounterChange, entryId, sync,

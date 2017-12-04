@@ -67,7 +67,7 @@ class Login extends React.Component {
           <Image source={ef} style={style.headerImage} />
         </View>
         <View style={style.formContainerStyle}>
-          <Text style={style.loginTextStyle}>Login</Text>
+          <Text style={style.loginTextStyle}>Login Versi Lama</Text>
           <TextInput
             placeholder="Username"
             style={style.textInput}

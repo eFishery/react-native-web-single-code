@@ -1,12 +1,12 @@
 function login() {
   return {
-    type: 'login',
+    type: 'LOGIN',
   };
 }
 
 function logout() {
   return {
-    type: 'logout',
+    type: 'LOGOUT',
   };
 }
 

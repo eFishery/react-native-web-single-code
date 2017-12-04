@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
-import Button from './utils/component/Button';
+import Button from './modules/Button';
 import ef from './assets/efishery.png';
+// import getScreenWidth from './helper/ResponsiveHelper';
+import routes from '../routers/routes';
 
 const style = StyleSheet.create({
   viewStyle: {
-    // backgroundColor: '#26ba9a',
+    backgroundColor: '#c1c3c8',
     flex: 1,
-    padding: 10,
+    paddingHorizontal: '16.5%',
+    height: '100%',
   },
   loginTextStyle: {
     fontSize: 24,
@@ -17,40 +20,69 @@ const style = StyleSheet.create({
     marginBottom: 40,
   },
   loginImageContainerStyle: {
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 40,
-    marginTop: 80,
+    height: 200,
+  },
+  formContainerStyle: {
+    flex: 2,
+  },
+  headerImage: {
+    opacity: 1,
+    width: 200,
+    height: 100,
+    resizeMode: 'contain',
+  },
+  textInput: {
+    padding: 5,
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#000',
+    alignItems: 'stretch',
   },
 });
 
 class Login extends React.Component {
+  // constructor() {
+  //   super();
+
+  // this.state = { screenSizeText: getScreenWidth().text };
+  // }
+
   onPress = () => {
-    const { navigate } = this.props.navigation;
-    navigate('Home');
+    const { navigation, login } = this.props;
+    navigation.navigate(routes.drawer);
+    login();
+  }
+
+  onLayout = () => {
+    // this.setState({ screenSizeText: getScreenWidth().text });
   }
 
   render() {
     return (
-      <View style={style.viewStyle}>
+      <View onLayout={this.onLayout} style={style.viewStyle}>
         <View style={style.loginImageContainerStyle}>
-          <Image source={ef} />
+          <Image source={ef} style={style.headerImage} />
         </View>
-        <Text style={style.loginTextStyle}>Login</Text>
-        <TextInput
-          placeholder="Username"
-          style={{ marginLeft: 15, marginRight: 15 }}
-        />
-        <TextInput
-          placeholder="Password"
-          style={{ marginLeft: 15, marginRight: 15 }}
-        />
-        <Button
-          containerViewStyle={{ marginTop: 30 }}
-          style={{ backgroundColor: '#588bd4' }}
-          onPress={this.onPress}
-          title="Login"
-        />
+        <View style={style.formContainerStyle}>
+          <Text style={style.loginTextStyle}>Login Versi Lama</Text>
+          <TextInput
+            placeholder="Username"
+            style={style.textInput}
+          />
+          <TextInput
+            placeholder="Password"
+            style={style.textInput}
+          />
+          <Button
+            containerViewStyle={{ marginTop: 30 }}
+            style={{ backgroundColor: '#588bd4' }}
+            onPress={this.onPress}
+            title="Login"
+          />
+        </View>
       </View>
     );
   }
@@ -58,6 +90,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   navigation: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 export default Login;

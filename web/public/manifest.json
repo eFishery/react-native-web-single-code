@@ -1,4 +1,12 @@
 {
-  "index.js": "js/index.999822e0150ca054420c.js",
-  "vendor.js": "js/vendor.418df1a9e259af1a9b38.js"
+  "fonts/fontawesome-webfont.eot?v=4.7.0": "fonts/fontawesome-webfont.674f50d287a8c48dc19ba404d20fe713.eot",
+  "fonts/fontawesome-webfont.svg?v=4.7.0": "fonts/fontawesome-webfont.912ec66d7572ff821749319396470bde.svg",
+  "fonts/fontawesome-webfont.ttf?v=4.7.0": "fonts/fontawesome-webfont.b06871f281fee6b241d60582ae9369b9.ttf",
+  "fonts/fontawesome-webfont.woff2?v=4.7.0": "fonts/fontawesome-webfont.af7ae505a9eed503f8b8e6982036873e.woff2",
+  "fonts/fontawesome-webfont.woff?v=4.7.0": "fonts/fontawesome-webfont.fee66e712a8a08eef5805a46892932ad.woff",
+  "img/efishery.png": "img/efishery.56f69335b34fe0e251557fe97e1362b8.png",
+  "index.js": "js/index.71bfc17269cc091f4c4e.js",
+  "vendor.css": "css/vendor.f316f81c0713e0872823.css",
+  "vendor.css.map": "css/vendor.f316f81c0713e0872823.css.map",
+  "vendor.js": "js/vendor.f316f81c0713e0872823.js"
 }

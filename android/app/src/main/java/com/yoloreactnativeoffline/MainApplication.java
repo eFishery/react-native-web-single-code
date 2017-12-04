@@ -11,6 +11,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +32,30 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage()
       );
     }
+
+    // /**
+    //  * Returns a custom path of the bundle file. This is used in cases the bundle should be loaded
+    //  * from a custom path. By default it is loaded from Android assets, from a path specified
+    //  * by {@link getBundleAssetName}.
+    //  * e.g. "file://sdcard/myapp_cache/index.android.bundle"
+    //  */
+    // @Override
+    // protected @Nullable String getJSBundleFile() {
+    //   // return "http://imballinst.com/test.js.bundle"
+    //   return null;
+    // }
+
+    // /**
+    //  * Returns the name of the bundle in assets. If this is null, and no file path is specified for
+    //  * the bundle, the app will only work with {@code getUseDeveloperSupport} enabled and will
+    //  * always try to load the JS bundle from the packager server.
+    //  * e.g. "index.android.bundle"
+    //  */
+    // @Override
+    // protected @Nullable String getBundleAssetName() {
+    //   // return "http://imballinst.com/test.js.bundle";
+    //   return "index.android.bundle";
+    // }
   };
 
   @Override

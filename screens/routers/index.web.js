@@ -1,27 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Route, Redirect } from 'react-router';
+import { ConnectedRouter, push } from 'react-router-redux';
 
-import Navbar from './web/Navbar';
-import Sidebar from './web/Sidebar';
+import store from '../store';
+import { history } from '../store/middlewares';
+import Login from '../containers/Login';
+import Home from '../containers/Home.web';
+import TableView from '../containers/TableView.web';
+import DetailView from '../containers/DetailView.web';
 
-const PageLayout = ({ children, ...props }) => (
-  <div className="full-height">
-    <Navbar {...props} />
-    <div>
-      <Sidebar {...props} />
-      <div style={{ marginLeft: 250, marginTop: 50 }}>
-        {children}
-      </div>
+const navigation = { navigate: route => store.dispatch(push(route)) };
+const isLoggedIn = () => store.getState().auth.isLoggedIn;
+
+const redirect = (Component, statusMatch, redirectTo) => (props) => {
+  if (isLoggedIn() === statusMatch) {
+    return <Component navigation={navigation} {...props} />;
+  }
+  return <Redirect to={redirectTo} />;
+};
+
+const WebRouter = () => (
+  <ConnectedRouter history={history}>
+    <div className="full-height">
+      <Route path="/login" component={redirect(Login, false, '/')} />
+      <Route exact path="/" component={redirect(Home, true, '/login')} />
+      <Route path="/table-view" component={redirect(TableView, true, '/login')} />
+      <Route path="/detail-view" component={redirect(DetailView, true, '/login')} />
     </div>
-  </div>
+  </ConnectedRouter>
 );
 
-PageLayout.propTypes = {
-  children: PropTypes.element,
-};
-
-PageLayout.defaultProps = {
-  children: null,
-};
-
-export default PageLayout;
+export default WebRouter;

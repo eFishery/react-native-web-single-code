@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FontAwesome from '../../components/modules/FontAwesome';
+import FontAwesome from './FontAwesome';
 
 const style = {
   navbar: {

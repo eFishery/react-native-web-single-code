@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../actions/authActions';
 import DetailView from '../components/DetailView';
-import PageLayout from '../routers';
+import PageLayout from '../components/PageLayout.web';
 
 const mapStateToProps = ({ nav, auth }) => ({ nav, isLoggedIn: auth.isLoggedIn });
 const mapDispatchToProps = { logout };

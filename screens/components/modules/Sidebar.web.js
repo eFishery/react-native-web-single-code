@@ -8,6 +8,14 @@ const style = {
   list: { listStyle: 'none', padding: 0 },
 };
 
+const isActive = (paths, currentPath) => {
+  if (Array.isArray(paths)) {
+    return paths.includes(currentPath);
+  }
+
+  return paths === currentPath;
+};
+
 const Sidebar = ({ location, navigation }) => (
   <div style={style.sidebar}>
     <ul style={style.list}>
@@ -15,14 +23,14 @@ const Sidebar = ({ location, navigation }) => (
         navigation={navigation}
         text="Home"
         icon="home"
-        active={location.pathname === '/' ? true : false}
+        active={isActive('/', location.pathname)}
         routeLink="/"
       />
       <SidebarItem
         navigation={navigation}
         text="TableView"
         icon="table"
-        active={location.pathname === '/table-view' ? true : false}
+        active={isActive(['/table-view', '/detail-view'], location.pathname)}
         routeLink="/table-view"
       />
     </ul>

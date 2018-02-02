@@ -6,12 +6,13 @@ const Button = props => {
     onPress,
     style,
     title,
+    containerViewStyle,
   } = props;
 
   return (
     <button
       onClick={onPress}
-      style={style}
+      style={{ ...containerViewStyle, ...style }}
     >
       {title}
     </button>

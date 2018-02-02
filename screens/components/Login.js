@@ -52,8 +52,8 @@ class Login extends React.Component {
 
   onPress = () => {
     const { navigation, login } = this.props;
-    navigation.navigate(routes.drawer);
     login();
+    navigation.navigate(routes.drawer);
   }
 
   onLayout = () => {

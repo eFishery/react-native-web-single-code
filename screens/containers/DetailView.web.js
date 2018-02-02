@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { logout } from '../actions/authActions';
 import DetailView from '../components/DetailView';
 import PageLayout from '../components/PageLayout.web';
 
-const mapStateToProps = ({ nav, auth }) => ({ nav, isLoggedIn: auth.isLoggedIn });
-const mapDispatchToProps = { logout };
+const mapStateToProps = ({ nav, counter, auth }) => ({ nav, counter, isLoggedIn: auth.isLoggedIn });
+const mapDispatchToProps = {};
 
 const WrappedDetailView = props => <PageLayout {...props}><DetailView {...props} /></PageLayout>;
 

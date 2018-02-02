@@ -1,8 +1,9 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import Modal from './modules/Modal';
 import Button from './modules/Button';
+import Entry from './Entry';
 
 const style = StyleSheet.create({
   viewStyle: {
@@ -15,6 +16,16 @@ const style = StyleSheet.create({
 class DetailView extends React.Component {
   state = { modalVisible: false }
 
+  onCounterChange = (action, currentCounter, id) => () => {
+    const doAction = {
+      increment: this.props.increment,
+      decrement: this.props.decrement,
+      reset: this.props.reset,
+    };
+
+    doAction[action](currentCounter, id);
+  }
+
   onOpenModal = () => {
     this.setState({ modalVisible: true });
   }
@@ -24,9 +35,24 @@ class DetailView extends React.Component {
   }
 
   render() {
+    const entries = this.props.counter.reduce((all, cur) => {
+      const { id, counter, sync } = cur;
+
+      return all.concat(<Entry
+        key={`${id}-entry-things`}
+        marginTop={{ marginTop: 25 }}
+        entryId={id}
+        counter={counter}
+        onCounterChange={this.onCounterChange}
+        sync={sync}
+      />);
+    }, []);
+
     return (
       <View style={style.viewStyle}>
         <Text>DetailView</Text>
+
+        {entries}
 
         <Modal
           isVisible={this.state.modalVisible}
@@ -47,6 +73,7 @@ class DetailView extends React.Component {
         </Modal>
 
         <Button
+          containerViewStyle={{ marginTop: 30 }}
           style={{ color: '#fff', backgroundColor: '#bbb' }}
           title="Show Modal"
           onPress={this.onOpenModal}
@@ -57,7 +84,10 @@ class DetailView extends React.Component {
 }
 
 DetailView.propTypes = {
-  // navigation: PropTypes.object.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  counter: PropTypes.object.isRequired,
 };
 
 export default DetailView;

@@ -23,18 +23,18 @@ const persistStorage = (store, options, callback) => {
 
       if (itemValue) {
         // If version is identified
-        // const app = JSON.parse(itemValue);
+        const app = JSON.parse(itemValue);
 
-        // if (app && app.version !== currentAppVersion) {
-        getPersistedStore().purge();
+        if (app && app.version !== currentAppVersion) {
+          getPersistedStore().purge();
 
-        //   AsyncStorage.setItem(
-        //     'reduxPersist:appVersion',
-        //     JSON.stringify({ version: currentAppVersion }),
-        //   );
-        // } else {
-        //   getPersistedStore(); // .purge to clean the offline data
-        // }
+          AsyncStorage.setItem(
+            'reduxPersist:appVersion',
+            JSON.stringify({ version: currentAppVersion }),
+          );
+        } else {
+          getPersistedStore(); // .purge to clean the offline data
+        }
       } else {
         // If no, define one
         AsyncStorage.setItem(

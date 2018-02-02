@@ -1,5 +1,5 @@
 import DeviceInfo from 'react-native-device-info';
 
-const getAppVersion = DeviceInfo.getVersion();
+const appVersion = DeviceInfo.getVersion();
 
-export default getAppVersion;
+export default appVersion;

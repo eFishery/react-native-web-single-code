@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import { Platform, View, Text, TextInput, StyleSheet, Image } from 'react-native';
 import Button from './modules/Button';
 import ef from './assets/efishery.png';
 // import getScreenWidth from './helper/ResponsiveHelper';
@@ -37,7 +37,7 @@ const style = StyleSheet.create({
   textInput: {
     padding: 5,
     marginBottom: 15,
-    borderBottomWidth: 1,
+    borderBottomWidth: Platform.OS !== 'web' ? 0 : 1,
     borderBottomColor: '#000',
     alignItems: 'stretch',
   },

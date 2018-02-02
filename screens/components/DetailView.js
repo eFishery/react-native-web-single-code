@@ -87,7 +87,7 @@ DetailView.propTypes = {
   increment: PropTypes.func.isRequired,
   decrement: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  counter: PropTypes.object.isRequired,
+  counter: PropTypes.array.isRequired,
 };
 
 export default DetailView;

@@ -2,31 +2,6 @@ box: imballinst/docker-android-react-native:latest
 
 # Build definition
 build:
-  # The steps that will be executed on build
-  steps:
-    - script:
-        name: show base information
-        code: |
-          cd android
-          ./gradlew -v
-          echo "+++ UNAME +++"
-          uname -a
-          echo "+++ ANDROID SDK +++"
-          echo $ANDROID_SDK
-          ls $ANDROID_SDK
-          echo "+++ ANDROID SDK BUILD TOOLS +++"
-          echo $ANDROID_HOME/build-tools
-          ls $ANDROID_HOME/build-tools
-          echo "+++ ANDROID NDK +++"
-          echo $ANDROID_NDK
-          ls $ANDROID_NDK
-          echo "+++ CREATE LOCAL PROPERTIES +++"
-          touch local.properties
-          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
-          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
-          cat local.properties
-          echo "+++ PATH +++"
-          echo $PATH
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL

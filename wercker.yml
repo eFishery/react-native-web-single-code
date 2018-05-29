@@ -2,6 +2,9 @@ box: imballinst/docker-android-react-native:latest
 
 # Build definition
 build:
+  steps:
+    - code: |
+        openssl version
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL

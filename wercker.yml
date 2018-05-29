@@ -3,8 +3,10 @@ box: imballinst/docker-android-react-native:latest
 # Build definition
 build:
   steps:
-    - code: |
-        openssl version
+    - script:
+        name: output openssl version
+        code: |
+          openssl version
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL
@@ -34,10 +36,10 @@ build_apk:
   # The steps that will be executed on build
   steps:
     - install-packages:
-      packages: openssl
+        packages: openssl
     - script:
-      name: decrypt key signing
-      code: |
+        name: decrypt key signing
+        code: |
           cd android
           openssl enc -in app/my-release-key.enc -out app/my-release-key.keystore -d -aes256 -k $DECRYPTION_KEY
     - script:

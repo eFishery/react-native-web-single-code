@@ -41,7 +41,7 @@ build_apk:
         name: decrypt key signing
         code: |
           cd android
-          openssl enc -in app/my-release-key.enc -out app/my-release-key.keystore -d -aes256 -k $DECRYPTION_KEY
+          openssl enc -d -aes-256-cbc -in app/my-release-key.enc -out app/my-release-key.keystore
     - script:
         name: build prod signed apk
         code: |

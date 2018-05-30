@@ -1,4 +1,4 @@
-box: imballinst/docker-android-react-native:latest
+box: imballinst/docker-android-react-native:test-branch
 
 # Build definition
 build:

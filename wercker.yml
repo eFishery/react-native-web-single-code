@@ -9,6 +9,10 @@ build:
           openssl version
           echo $PATH
           echo $ANDROID_HOME
+          echo "+++ CREATE LOCAL PROPERTIES +++"
+          touch local.properties
+          echo "sdk.dir=/opt/android-sdk-linux" >> local.properties
+          echo "ndk.dir=/opt/android-ndk/android-ndk-r10e" >> local.properties
   after-steps:
     - slack-notifier:
         url: $SLACK_WEBHOOK_URL

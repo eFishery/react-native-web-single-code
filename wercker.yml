@@ -1,4 +1,4 @@
-box: sumartoyo/android-nodejs:latest
+box: imballinst/docker-android-react-native:latest
 
 # Build definition
 build:

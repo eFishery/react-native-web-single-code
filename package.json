@@ -89,8 +89,5 @@
       "js"
     ]
   },
-  "pre-commit": [
-    "test",
-    "build"
-  ]
+  "pre-commit": ["test"]
 }

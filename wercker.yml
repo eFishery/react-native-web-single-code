@@ -6,6 +6,7 @@ build:
     - script:
         name: output openssl version
         code: |
+          cd android
           openssl version
           echo $PATH
           echo $ANDROID_HOME
